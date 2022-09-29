@@ -1,0 +1,26 @@
+<ion-header class="header ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: #125a24;"></ion-back-button>
+      <ion-menu-button><ion-icon src="assets/icon/menu.svg"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div style="display: flex">
+    <ion-img class="logo" src="assets/images/logo.png">
+    </ion-img>
+  </div>
+  <div>
+    <h3 class="ion-text-center"  style="color: #125a24;">Últimas Noticias</h3>
+  </div>
+</ion-header>
+<ion-content >
+  <div *ngIf="item" class="ion-margin-horizontal">
+    <h5>{{ item.title.rendered }}</h5>
+    <ion-avatar class="new-img" *ngIf="item._embedded['wp:featuredmedia']">
+      <ion-img [src]="item._embedded['wp:featuredmedia'][0].source_url"></ion-img>
+    </ion-avatar>
+
+    <div [innerHtml]="item.content.rendered || item.excerpt.rendered">
+    </div>
+  </div>
+</ion-content>

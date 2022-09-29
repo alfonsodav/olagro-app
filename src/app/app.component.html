@@ -1,0 +1,46 @@
+<ion-app>
+  <ion-menu side="start" menuId="first" content-id="main-content">
+    <ion-header class="header ion-no-border">
+      <div style="display: flex">
+        <ion-img class="logo" src="assets/images/logo.png">
+        </ion-img>
+      </div>
+    </ion-header>
+    <ion-content class="ion-padding-vertical">
+      <ion-item>
+        <a style="text-decoration: none; color: black" routerLink="home" >Inicio</a>
+      </ion-item>
+      <ion-item>
+        <a style="text-decoration: none; color: black" routerLink="share/catalog" >Catálogo</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="add-lot" >Agregar Lotes</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="convert-units">Convertidor de unidades</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="barn">Administración de granero</a>
+      </ion-item>
+      <ion-item>
+        <a style="text-decoration: none; color: black" routerLink="barn/catalogue">Granero</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="orders">Ordenes de compra</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="product/shopping-cart">Carro de compras</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="/notificaciones">Notificaciones</a>
+      </ion-item>
+      <ion-item *ngIf="auth.loginStatus">
+        <a style="text-decoration: none; color: black" routerLink="user" >Mi perfil</a>
+      </ion-item>
+    </ion-content>
+    <ion-button *ngIf="auth.loginStatus" (click)="auth.outlog()" expand="block" color="danger" routerLink="/">Cerrar sesión</ion-button>
+    <ion-button *ngIf="!auth.loginStatus" expand="block" color="warning" routerLink="/">Iniciar sesión</ion-button>
+  </ion-menu>
+  <ion-router-outlet id="main-content">
+  </ion-router-outlet>
+</ion-app>

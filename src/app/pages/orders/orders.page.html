@@ -1,0 +1,68 @@
+<!--suppress ALL -->
+<app-header></app-header>
+
+<ion-content>
+  <h2>Órdenes de Compra</h2>
+  <ion-segment mode="md" (ionChange)="segmentChanged()" value="active">
+    <ion-segment-button value="active">
+      <ion-label>Activas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="history">
+      <ion-label>Historial</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div>
+    <div *ngIf="active">
+      <ion-grid>
+        <ion-row class="ordenes" *ngFor="let orden of orderActive" (click)="selectOrder(orden.orderId)">
+          <ion-col size="6">
+            <ion-avatar style="--border-radius: 1rem; width: auto; height: auto">
+              <ion-img [src]="orden.productLot?.product?.productImage || 'assets/images/mapa.png'"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text>
+              <p><strong>{{orden.orderDate | date: 'dd/MM/yyyy'}}</strong></p>
+              <p>{{orden.productLot?.productLotName}}</p>
+              <p>{{orden.orderBuyerName}}</p>
+              <ion-chip color="light" style="background: #125a24">
+                <ion-label>{{orden.orderTotal | number:'1.2-2'}}</ion-label>
+              </ion-chip>
+              <ng-container [ngSwitch]="orden.orderStatus">
+                <p style="font-size: small" *ngSwitchCase="2">Cerrada</p>
+                <p style="font-size: small" *ngSwitchCase="3">Cancelada</p>
+                <p style="font-size: small" *ngSwitchDefault>Abierta</p>
+              </ng-container>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="!active">
+      <ion-grid>
+        <ion-row class="ordenes" *ngFor="let orden of orders" (click)="selectOrder(orden.orderId)">
+          <ion-col size="6">
+            <ion-avatar style="--border-radius: 1rem; width: auto; height: auto">
+             <ion-img [src]="orden.productLot?.product?.productImage || 'assets/images/mapa.png'"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text>
+              <p><strong>{{orden.orderDate | date: 'dd/MM/yyyy'}}</strong></p>
+              <p>{{orden.productLot?.productLotName}}</p>
+              <p>{{orden.orderBuyerName}}</p>
+              <ion-chip color="light" style="background: #125a24">
+                <ion-label>{{orden.orderTotal | number:'1.2-2'}}</ion-label>
+              </ion-chip>
+              <ng-container [ngSwitch]="orden.orderStatus">
+                <p style="font-size: small" *ngSwitchCase="1">Abierta</p>
+                <p style="font-size: small" *ngSwitchCase="2">Cerrada</p>
+                <p style="font-size: small" *ngSwitchCase="3">Cancelada</p>
+              </ng-container>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

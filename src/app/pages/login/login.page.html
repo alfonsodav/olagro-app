@@ -1,0 +1,58 @@
+<ion-header class="login-header ion-no-border">
+  <ion-img class="logo" src="assets/images/logo.png">
+  </ion-img>
+</ion-header>
+
+<ion-content fullscreen="true" class="login-content">
+  <ion-card class="ion-no-margin">
+    <ion-card-header class="ion-text-end text-head ion-margin-horizontal">
+      <h1 class="ion-no-margin">Inicie sesión</h1>
+      <p>Olagro, El amigo de los productores</p>
+    </ion-card-header>
+    <ion-card-content>
+      <!--suppress AngularUndefinedBinding -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-margin-horizontal input" lines="none">
+          <ion-label>
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-label>
+          <ion-input formControlName="phone" placeholder="Número de Teléfono"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin input" lines="none">
+          <ion-label>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </ion-label>
+          <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <!--<ion-text class="ion-text-center ion-padding-horizontal" color="dark">
+          <a class="reset-pass"><strong>¿Olvido su contraseña?</strong> Solicite sus credenciales por acá.</a>
+        </ion-text>-->
+        <ion-button type="submit" [disabled]="!loginForm.valid" expand="block" shape="round" fill="clear"
+                    class="button-login ion-margin">
+          Ingresar
+        </ion-button>
+      </form>
+
+      <div class="ion-margin" style="border: solid 1px white; opacity: 80%"></div>
+      <ion-text class="ion-text-center ion-margin ion-padding-horizontal" color="dark">
+        <a class="reset-pass"><strong>No tengo credenciales!</strong> Solo quiero explorar el app.</a>
+      </ion-text>
+      <ion-button routerLink="home" expand="block" shape="round" fill="clear" class="button-invi ion-margin">
+        Ingresar como invitado
+      </ion-button>
+
+    </ion-card-content>
+    <ion-footer class="ion-no-border">
+      <ion-card class="ion-margin ion-no-padding ion-color-light help">
+        <ion-item lines="none" (click)="help()">
+          <ion-icon name="call-outline" style="color: #125a24"></ion-icon>
+          <ion-label>
+            <sub><strong>¿Necesitas ayuda?</strong> Llamenos y se la brindamos</sub>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-footer>
+  </ion-card>
+
+</ion-content>
+

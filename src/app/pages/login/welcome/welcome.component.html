@@ -1,0 +1,28 @@
+<ion-content fullscreen="true" class="login-content">
+  <div class="global">
+    <div class="login-header">
+      <ion-img class="logo" src="assets/images/logo.png">
+      </ion-img>
+    </div>
+    <div class="content">
+      <h2 class="ion-margin" style="color: #125a24"><strong>Bienvenido</strong></h2>
+      <div style="margin: auto; height: 120px; width: 120px;">
+        <ion-avatar style="background: white; width: 100%; height: 100%">
+          <ion-img style="padding: 1rem" [src]="user.identityImage || 'assets/images/farmer.png'"></ion-img>
+        </ion-avatar>
+      </div>
+      <div class="ion-margin" style="color: white">
+        <h3>{{user.name}}</h3>
+        <sub>{{user.email}}</sub>
+      </div>
+      <div class="ion-padding-horizontal">
+        <ion-button size="large" (click)="goHome()" expand="block" fill="clear" shape="round" color="light"
+                    style="background: #125a24; border-radius: 64px;">Continuar
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+
+
+</ion-content>

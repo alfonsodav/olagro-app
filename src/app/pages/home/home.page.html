@@ -1,0 +1,66 @@
+<ion-header class="header ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div style="display: flex">
+    <ion-img class="logo" src="assets/images/logo.png">
+    </ion-img>
+  </div>
+</ion-header>
+<ion-content style="height: 100%">
+  <ion-card style="border-radius: 1rem">
+    <ion-grid>
+      <ion-row class="info-panel">
+        <ion-col size="3">
+          <ion-img [src]="user?.identityImage || 'assets/images/farmer.png'">
+          </ion-img>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button class="perfil" *ngIf="!auth.loginStatus" routerLink="/" style="color: #125a24;" fill="clear">Iniciar sesión
+          </ion-button>
+          <div class="perfil" *ngIf="auth.loginStatus" (click)="goProfile()">
+            <p style="margin: auto; font-size: large">{{user.name}} {{user.surnames}}</p>
+            <p style="margin: auto">{{user.email}}</p>
+          </div>
+        </ion-col>
+        <ion-col sizee="4" style="color: #125a24;">
+          <div *ngIf="!auth.loginStatus">
+            <ion-icon name="call-outline" class="call-help"></ion-icon>
+            <p style="text-align: center"><strong>¿Necesitas ayuda?</strong> Llamenos y se la brindamos</p>
+          </div>
+          <ion-button *ngIf="auth.loginStatus" (click)="goProfile()" style="color: #125a24; margin: auto"
+                      fill="clear">Editar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card style="border-radius: 1rem">
+    <ion-card-header>
+      <ion-card-title style="color: #125a24;">Últimas Noticias</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let item of items " (click)="showNew(item.id)">
+          <ion-col size="6">
+            <ion-avatar class="new-img" *ngIf="item._embedded['wp:featuredmedia']">
+              <ion-img [src]="item._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text>
+              <h5>{{ item.title.rendered }}</h5>
+              <div [innerHTML]="item.excerpt.rendered"></div>
+            </ion-text>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

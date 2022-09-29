@@ -1,0 +1,68 @@
+<ion-header class="header ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon src="assets/icon/menu.svg"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div style="display: flex">
+    <ion-img class="logo" src="assets/images/logo.png">
+    </ion-img>
+  </div>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-row class="info-panel">
+        <ion-col size="2">
+          <ion-img [src]="user.identityImage || 'assets/images/farmer.png'">
+          </ion-img>
+        </ion-col>
+        <ion-col size="10">
+          <div class="perfil">
+            <p style="margin: auto; font-size: large">{{user.name}} {{user.surnames}}</p>
+            <p style="margin: auto">{{user.email}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+    <ion-card-content class="ion-margin-top">
+      <!--suppress AngularUndefinedBinding -->
+      <form class="edit-profile" [formGroup]="editGroup" (ngSubmit)="validar()">
+        <ion-item>
+          <ion-label slot="start">Teléfono</ion-label>
+          <ion-input formControlName="phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Departamento</ion-label>
+          <ion-select formControlName="departmentId" (ionChange)="onDepartamentosChange($event)">
+            <ion-select-option *ngFor="let depart of departamentos" [value]="depart.value"
+            >{{depart.viewValue}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Municipio</ion-label>
+          <ion-select formControlName="municipalityId">
+            <ion-select-option *ngFor="let munic of municipios"
+                               [value]="munic.value">{{munic.viewValue}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dirección completa</ion-label>
+          <ion-input formControlName="address"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Longitud</ion-label>
+          <ion-input formControlName="lat"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Latitud</ion-label>
+          <ion-input formControlName="long"></ion-input>
+        </ion-item>
+        <ion-button class="submit" color="light" type="submit" fill="clear" expand="block">Guardar</ion-button>
+        <ion-button color="danger" (click)="backHome()" expand="block" shape="round">Cancelar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

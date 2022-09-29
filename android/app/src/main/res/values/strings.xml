@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Olagro</string>
+    <string name="title_activity_main">Olagro</string>
+    <string name="package_name">io.olagro.olagro</string>
+    <string name="custom_url_scheme">io.olagro.olagro</string>
+</resources>

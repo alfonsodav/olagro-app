@@ -1,0 +1,145 @@
+<app-header></app-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{ barn ? "Actualizar Lote" : "Crear Lote" }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="barnStoreForm" novalidate fxFlex autocomplete="off">
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Productor</ion-label>
+          <ion-select formControlName="user_id">
+            <ion-select-option
+              *ngFor="let seller of sellers"
+              [value]="seller.id"
+              >{{ seller.name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Tipo de producto</ion-label>
+          <ion-select formControlName="productTypeId" required>
+            <ion-select-option
+              *ngFor="let productType of productTypes"
+              [value]="productType.product_type_code"
+            >
+              {{ productType.product_type_name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Medida de producto</ion-label>
+          <ion-select formControlName="productMassMeasurementId" required>
+            <ion-select-option
+              *ngFor="let productMeasurement of productMassMeasurements"
+              [value]="productMeasurement.product_mass_measurement_code"
+            >
+              {{
+                productMeasurement.product_mass_measurement_name
+              }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Cantidad</ion-label>
+          <ion-input
+            formControlName="estimated_production"
+            placeholder="Cantidad"
+            type="number"
+            pattern="[0-9]+\.?[0-9]*"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Fecha de disponibilidad</ion-label>
+          <ion-datetime
+            formControlName="harvest_date"
+            displayFormat="DD/MM/YYYY"
+            max="2050-12-23"
+          ></ion-datetime>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Area cultivada</ion-label>
+          <ion-input
+            formControlName="cultivated_area"
+            placeholder="Area Cultivada"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Precio de venta</ion-label>
+          <ion-input
+            formControlName="price"
+            placeholder="Precio de Venta"
+            type="number"
+            pattern="[0-9]+\.?[0-9]*"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Dirección de área cultivada</ion-label>
+          <ion-input
+            formControlName="cultivated_area_address"
+            maxLength="200"
+            position="floating"
+            placeholder="Dirección de Area Cultivada"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="standard-field" appearance="standard">
+          <ion-label>Modo de producción</ion-label>
+          <ion-select formControlName="production_mode">
+            <ion-select-option value="NoDefinido"
+              >No Definido</ion-select-option
+            >
+            <ion-select-option value="Convencional"
+              >Convencional</ion-select-option
+            >
+            <ion-select-option value="Tradicional"
+              >Tradicional</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <p>Imagen del producto</p>
+          <input type="file" (change)="onImageSelected($event)" />
+        </ion-item>
+        <ion-item *ngIf="onlyVerifie()">
+          <p>Ficha de producción</p>
+          <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, .xlsx" (change)="onFileSelected($event)" />
+        </ion-item>
+        <ion-item  *ngIf="onlyVerifie() && barn">
+          <ion-label>Estatus del Lote</ion-label>
+          <ion-select formControlName="status">
+            <ion-select-option value="unverified'">No verificado</ion-select-option>
+            <ion-select-option value="verified">Verificado</ion-select-option>
+            <ion-select-option value="retained">Retenido</ion-select-option>
+            <ion-select-option value="marketed">Vendido</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Valor Total</ion-label>
+          <ion-input
+            formControlName="total"
+            [value]="
+              barnStoreForm.controls.estimated_production.value *
+                barnStoreForm.controls.price.value | currency: 'L '
+            "
+          ></ion-input>
+        </ion-item>
+        
+      </form>
+      <div style="display: flex; justify-content: space-around">
+        <ion-button color="primary" routerLink="/barn"> Cancelar </ion-button>
+        <ion-button color="success" (click)="onSave()">
+          {{ barn ? "Actualizar Lote" : "Crear Lote" }}
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<ion-content>
+  <div style="margin: 1em 0em 1em">
+    <ion-card class="standard-card" *ngIf="!loading">
+      <h3>Detalle del Lote</h3>
+      <div>
+        <div>
+          <ion-img class="responsive-img" [src]="productLot.productImage" alt=""></ion-img>
+        </div>
+        <div>
+          <div class="product-lot-information">
+            <h4 style="margin-block-start: 0.5em; margin-block-end: 0.5em;">{{productLot.productLotName}}</h4>
+            <p><span class="product-lot-label">Producto:</span> {{productLot.productName}}</p>
+            <p><span class="product-lot-label">Calidad:</span> {{productLot.productQualityName}} ({{productLot.productQualityDescription}})</p>
+            <p><span class="product-lot-label">Cantidad:</span> {{productLot.productLotQuantity}} {{productLot.productMassMeasurementName}}</p>
+            <p><span class="product-lot-label">Precio:</span> L {{productLot.productLotSalePrice | number:'1.2-2'}}</p>
+            <p><span class="product-lot-label">Dirección Cultivo:</span> {{productLot.productLotCultivatedAreaAddress}}</p>
+            <p><span class="product-lot-label">Modo de Producción:</span> {{productLot.productLotProductionMode}}</p>
+            <p><span class="product-lot-label">Disponible:</span> {{productLot.productLotAvailableDate}}</p>
+            <p><span class="product-lot-label">Dirección Recoger:</span> {{productLot.productLotPickupAddress}}</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <ion-button [routerLink]="['/product/shopping-cart']">Retornar</ion-button>
+      </div>
+      <div *ngIf="productLot.productLotImages">
+        <h3>Imágenes del Lote</h3>
+        <div *ngFor="let productLotImage of productLot.productLotImages">
+          <ion-img class="responsive-img" [src]="productLotImage?.productLotImageName"></ion-img>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

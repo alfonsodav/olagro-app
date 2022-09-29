@@ -1,0 +1,68 @@
+<app-header></app-header>
+<ion-content>
+  <ion-card class="standard-card">
+    <ion-card-content>
+      <h3>Carro de compras</h3>
+      <div class="product-lots-catalog">
+        <div
+          class="product-lot-catalog"
+          *ngFor="let productLot of productLots"
+        >
+          <div>
+            <div style="display: flex">
+              <a [routerLink]="['detail', productLot.productLotId]">
+                <img
+                  class="responsive-img"
+                  [src]="productLot.product.productImage"
+                  alt=""
+                />
+              </a>
+              <ion-icon
+                class="more-options"
+                (click)="presentActionSheet(productLot.productLotId)"
+                name="ellipsis-horizontal"
+              ></ion-icon>
+            </div>
+            <div>
+              <h4>
+                <a [routerLink]="['detail', productLot.productLotId]">{{
+                  productLot.productLotName
+                }}</a>
+              </h4>
+              <p class="product-lot-price">
+                Precio: L.
+                {{ productLot.productLotSalePrice | number: "1.2-2" }}
+              </p>
+              <p class="product-lot-price">
+                Disponible: {{ productLot.productLotAvailableDate }}
+              </p>
+              <p class="product-lot-price">
+                Producido en: {{ productLot.productLotCultivatedAreaAddress }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="error-alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+        <ion-button aria-label="Limpiar" (click)="onErrorClear()">
+          <ion-icon>close</ion-icon>
+        </ion-button>
+      </div>
+      <div *ngIf="saving">
+        <ion-spinner></ion-spinner>
+      </div>
+      <div>
+        <ion-button
+          (click)="onCheckout()"
+          color="primary"
+          [disabled]="!productLots || productLots.length === 0"
+          >Ordenar</ion-button
+        >
+        <ion-button color="warning" [routerLink]="['/share/catalog']"
+          >Volver al catálogo</ion-button
+        >
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

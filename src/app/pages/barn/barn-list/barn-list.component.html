@@ -1,0 +1,20 @@
+<app-header></app-header>
+<ion-content>
+  <div>
+    <ng-template *ngFor="let quincena of barnListService.calendar" [ngIf]="quincena.productTypes.length > 0">
+    <ion-card class=" ion-padding">
+      <ion-card-title style="color: #1b5e20;"
+        >{{ quincena.mes | titlecase }} quincena: <span style="font-weight: bold;">{{ quincena.quincena }}</span></ion-card-title
+      >
+      <ion-card-content  [routerLink]="['./../catalogue/detail']"
+      [queryParams]="{ mes: quincena.mes, Nmes: quincena.numberMes, quincena: quincena.quincena }">
+        <p *ngFor="let item of quincena.productTypes" style="list-style: none; color: black">
+          {{ item.name }}, estimado:<span style="font-weight: bold;"> {{ item.total }}</span>
+        </p>
+      </ion-card-content>
+    </ion-card></ng-template>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/barn/order" color="primary"><ion-icon name="storefront-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+</ion-content>

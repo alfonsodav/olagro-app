@@ -1,0 +1,40 @@
+
+<div class="ion-page">
+  <div>
+    <ion-title>Publicar a catálogo</ion-title>
+    <form
+      class="standard-form"
+      [formGroup]="productLotForm"
+      novalidate
+      autocomplete="off"
+    >
+      <ion-item class="standard-field" appearance="standard">
+        <ion-label>Fecha de expiración</ion-label>
+        <ion-datetime formControlName="endDate" [min]="minDate" [max]="maximo"></ion-datetime>
+      </ion-item>
+    </form>
+  </div>
+  <div>
+    <div class="error-alert" *ngIf="errorMessage">
+      {{ errorMessage }}
+      <ion-button naria-label="Limpiar" (click)="onErrorClear()">
+        <ion-icon>close</ion-icon>
+      </ion-button>
+    </div>
+    <div fxLayout *ngIf="saving">
+      <ion-spinner></ion-spinner>
+    </div>
+    <div>
+      <ion-button color="warning" (click)="onCancelClick()"
+        >Cancelar</ion-button
+      >
+      <ion-button
+        color="primary"
+        (click)="onSavePublishDate()"
+        [disabled]="!productLotForm.valid"
+        type="submit"
+        >Aceptar</ion-button
+      >
+    </div>
+  </div>
+</div>

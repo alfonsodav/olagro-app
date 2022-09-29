@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<ion-content md="ios">
+  <div class="gradient">
+    <div class="lot-img">
+    </div>
+    <div class="content">
+      <ion-searchbar mode="ios" color="light" style="background: transparent"></ion-searchbar>
+      <h2>Mis lotes</h2>
+    </div>
+  </div>
+  <ion-grid style="overflow: auto">
+    <ion-row *ngFor="let product of data" (click)="showDetail(product.productLotId)">
+      <ion-col>
+        <ion-thumbnail class="ion-margin-horizontal" style="--size:150px">
+          <ion-img [src]="product.productImage"></ion-img>
+        </ion-thumbnail>
+        
+      </ion-col>
+      <ion-col size="6">
+        <ion-text>
+          <h5 class="ion-no-margin">{{product.productName}}</h5>
+          <p style="font-size: small">
+            {{product.productLotName}}
+          </p>
+          <p style="font-size: small">
+            Tipo de producto: {{product.product_type_name}}
+          </p>
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="center"  slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="success" (click)="showDetail(true)">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" (click)="showDetail()">
+        <ion-icon name="pricetags-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+  </ion-fab>
+</ion-content>

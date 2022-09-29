@@ -1,0 +1,88 @@
+<app-header> </app-header>
+<ion-content>
+  <ion-card class="card">
+    <ion-card-title> Crear solicitud de pedido </ion-card-title>
+    <ion-card-content>
+      <form [formGroup]="barnOrderForm">
+        <ion-item>
+          <ion-label>Tipo de producto</ion-label>
+          <ion-select formControlName="productTypeId" required>
+            <ion-select-option
+              *ngFor="let productType of productTypes"
+              [value]="productType.product_type_code"
+            >
+              {{ productType.product_type_name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Cantidad</ion-label>
+          <input type="number" ionInput formControlName="orderTotal" />
+        </ion-item>
+        <ion-item>
+          <ion-label>Fecha tope</ion-label>
+          <ion-datetime
+            #expectedDeliveryDate
+            (ionChange)="
+              barnOrderForm.controls.expectedDeliveryDate.setValue(
+                expectedDeliveryDate.value
+              )
+            "
+          ></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Terminos de envío(Incoterm)</ion-label>
+          <ion-select formControlName="incoterm">
+            <ion-select-option value="DAP">Envío al destino</ion-select-option>
+            <ion-select-option value="EXW"
+              >Entrega directa a la salida</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dirección de envio de productos</ion-label>
+          <input type="text" formControlName="deliveryAddress" />
+        </ion-item>
+        <div class="d-flex">
+          <p>Ingresa tu localización</p>
+          <!-- Maps -->
+          <agm-map
+            class="m-auto"
+            [latitude]="lat"
+            [longitude]="lng"
+            [zoom]="zoom"
+            (mapClick)="setPoint($event)"
+          >
+            <agm-marker
+              *ngFor="let marker of markers"
+              [latitude]="marker.position.lat"
+              [longitude]="marker.position.lng"
+              [label]="marker.label"
+            >
+            </agm-marker>
+          </agm-map>
+          <sub *ngIf="requireCoord"
+            >Coordenadas requeridas, marque la dirección en el mapa</sub
+          >
+          <!-- end Maps -->
+        </div>
+      </form>
+    </ion-card-content>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+      <div class="error-alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+        <ion-button aria-label="Limpiar" (click)="onErrorClear()">
+          <ion-icon>close</ion-icon>
+        </ion-button>
+      </div>
+      <div>
+        <ion-button type="submit" (click)="onSave()" color="primary"
+          >Aceptar</ion-button
+        >
+        <ion-button color="danger" [routerLink]="['/barn/catalogue']"
+          >Cancelar</ion-button
+        >
+      </div>
+    </div>
+  </ion-card>
+</ion-content>

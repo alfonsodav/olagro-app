@@ -1,0 +1,34 @@
+.header {
+  ion-img {
+    width: 30%;
+    margin: auto;
+  }
+}
+ion-card{
+  border-radius: 2rem;
+}
+.info-panel {
+  ion-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .perfil {
+    text-align: left;
+    margin: auto auto 0 1rem;
+    color: #125a24;
+    padding-right: 0.5rem;
+    span {
+      color: #125a24;
+    }
+  }
+}
+.edit-profile{
+  ion-label{
+    color: #125a24;
+  }
+}
+.submit{
+  background-color: #125a24;
+  border-radius: 64px;
+}

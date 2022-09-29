@@ -1,0 +1,23 @@
+.gradient{
+  height: 20%;
+  position: relative;
+  .lot-img{
+    background-image: url("../../../assets/images/imagen-3.png");
+    background-size: cover;
+    border-radius: 0 0 1rem 1rem !important;
+    height: 100%;
+    width: 100%;
+  }
+  .content{
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0 0 1rem 1rem !important;
+    background: linear-gradient(to top, #125a24, transparent 70%);
+    color: white;
+    h2{
+      margin-left: 1rem;
+    }
+  }
+}

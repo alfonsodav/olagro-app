@@ -1,0 +1,62 @@
+<app-header></app-header>
+<ion-content>
+  <ion-searchbar
+    class="search"
+    placeholder=""
+    #searchBar
+    [value]="searchKey"
+    (ionClear)="search('')"
+    showClearButton="always"
+    (ionInput)="search(searchBar.value)"
+  ></ion-searchbar>
+  <!--<ion-item lines="none">
+    <span>Categoria</span>
+    <ion-select>
+      <ion-select-option>Categoria</ion-select-option>
+    </ion-select>
+  </ion-item>-->
+
+  <ion-grid>
+    <ion-row
+      *ngFor="let product of data"
+    >
+      <ion-col size="6" (click)="showDetail(product.productLotId)">
+        <ion-img [src]="product?.productImage"></ion-img>
+      </ion-col>
+      <ion-col size="6">
+        <ion-text>
+          <h5 class="ion-no-margin">
+            {{ product?.productName }}<ion-icon
+              (click)="publishModal(product.productLotId)"
+              class="ion-margin-start"
+              name="pricetags-outline"
+            ></ion-icon>
+          </h5>
+          <p style="font-size: small">
+            Calidad: {{ product?.productQualityName}}
+          </p>
+          <p style="font-size: small">
+            Precio:
+            <strong
+              >L. {{product?.productLotSalePrice | number:'1.2-2'}}</strong
+            >
+          </p>
+          <p style="font-size: small">
+            Disponible: {{product?.productLotAvailableDate | date:
+            'dd-MMMM-yyyy'}}
+          </p>
+          <p style="font-size: small">
+            Producido en: {{product?.productLotCultivatedAreaAddress}}
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="changePage()">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando mas productos..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,51 @@
+<app-header></app-header>
+<ion-content>
+  <ion-searchbar
+    class="search"
+    placeholder=""
+    #searchBar
+    [value]="searchKey"
+    (ionClear)="search('')"
+    showClearButton="always"
+    (ionInput)="search(searchBar.value)"
+  ></ion-searchbar>
+  <!--<ion-item lines="none">
+    <span>Categoria</span>
+    <ion-select>
+      <ion-select-option>Categoria</ion-select-option>
+    </ion-select>
+  </ion-item>-->
+
+  <ion-grid>
+    <ion-row
+      *ngFor="let product of data"
+      (click)="showDetail(product.productLotId)"
+    >
+      <ion-col size="6">
+        <ion-img [src]="product.productImage"></ion-img>
+      </ion-col>
+      <ion-col size="6">
+        <ion-text>
+          <h5 class="ion-no-margin">{{ product.productLotName }}</h5>
+          <p style="font-size: small">
+            Precio: L. {{ product.productLotSalePrice | number: "1.2-2" }}
+          </p>
+          <p style="font-size: small">
+            Disponible:
+            {{ product.productLotAvailableDate | date: "dd-MMMM-yyyy" }}
+          </p>
+          <p style="font-size: small">
+            Producido en: {{ product.productLotCultivatedAreaAddress }}
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="changePage()">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando mas productos..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

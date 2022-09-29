@@ -1,0 +1,24 @@
+.image-product {
+  ion-avatar {
+    --border-radius: 1rem;
+    width: auto;
+    height: auto;
+  }
+
+  .info-orden {
+    text-align: right;
+    padding: 1rem;
+    color: white;
+    position: absolute;
+    bottom: 4px;
+    border-radius: 0 1rem 1rem;
+    background: linear-gradient(to top, black, transparent 70%);
+    p{
+      font-weight: bold;
+    }
+    ion-chip{
+      background-color: #125a24;
+      color: white;
+    }
+  }
+}

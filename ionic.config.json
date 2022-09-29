@@ -1,0 +1,7 @@
+{
+  "name": "olagro-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,135 @@
+<app-header></app-header>
+
+<ion-content>
+
+  <div>
+    <!--Razon de comentar: este form sirve para agregar lotes de producto pero no para el producto en si-->
+    <ion-card>
+      <ion-card-header>
+        <h2 class="ion-text-center" style="color: #125a24">{{id ? 'Actualizar lote': 'Agregar lote'}}</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <form *ngIf="!newProduct" [formGroup]="productLotForm" novalidate autocomplete="off">
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Productor</ion-label>
+            <ion-select formControlName="productLotSellerId" required>
+              <ion-select-option [value]="user.id">{{user.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Producto</ion-label>
+            <ion-select formControlName="productId" required #productSelect (ionChange)="onProductSelected(productSelect)">
+              <ion-select-option *ngFor="let product of productList"
+                                 [value]="product.product_code">{{product.product_name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Calidad de producto</ion-label>
+            <ion-select formControlName="productQualityId" required (ionChange)="getProductQualities()">
+              <ion-select-option *ngFor="let productQuality of productQualities"
+                                 [value]="productQuality.product_quality_code">{{productQuality.product_quality_name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Medida de producto</ion-label>
+            <ion-select formControlName="productMassMeasurementId" required>
+              <ion-select-option *ngFor="let productMeasurement of productMassMeasurements"
+                                 [value]="productMeasurement.product_mass_measurement_code">{{productMeasurement.product_mass_measurement_name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Cantidad</ion-label>
+            <ion-input formControlName="productLotQuantity" placeholder="Cantidad" type="number"
+                       pattern="[0-9]+\.?[0-9]*">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Fecha de disponibilidad</ion-label>
+            <ion-datetime formControlName="productLotAvailableDate"
+                       placeholder="Fecha Disponibilidad">
+            </ion-datetime>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Area productiva</ion-label>
+            <ion-input type="number" formControlName="productLotCultivatedArea" placeholder="Area Cultivada">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Dirección de área productiva</ion-label>
+            <ion-textarea formControlName="productLotCultivatedAreaAddress" maxLength="2000"
+                          placeholder="Dirección de Area Cultivada"></ion-textarea>
+
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>rendimiento de area productiva</ion-label>
+            <ion-input formControlName="productLotCultivatedAreaPerformance" placeholder="Rendimiento">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Modo de producción</ion-label>
+            <ion-select formControlName="productLotProductionMode">
+              <ion-select-option value="NoDefinido">No Definido</ion-select-option>
+              <ion-select-option value="Convencional">Convencional</ion-select-option>
+              <ion-select-option value="Tradicional">Tradicional</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Tipo de venta</ion-label>
+            <ion-select formControlName="productLotSaleType" required>
+              <ion-select-option *ngFor="let purchaseType of purchaseTypes"
+                                 [value]="purchaseType.purchase_type_code">{{purchaseType.purchase_type_name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Precio de venta</ion-label>
+            <ion-input formControlName="productLotSalePrice" placeholder="Precio de Venta" type="number"
+                       pattern="[0-9]+\.?[0-9]*">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="standard-field" appearance="standard">
+            <ion-label>Dirección recoger</ion-label>
+            <ion-textarea formControlName="productLotPickupAddress" maxLength="2000"
+                          placeholder="Dirección Recoger"></ion-textarea>
+          </ion-item>
+          <ion-button expand="block" shape="round" type="submit" [disabled]="!productLotForm.valid" (click)="saveLot()"
+                      color="success">{{id ? 'Guardar cambios': 'Guardar lote'}}
+          </ion-button>
+        </form>
+        <!-- nuevo producto -->
+        <form *ngIf="newProduct" [formGroup]="productForm" novalidate>
+          <ion-item>
+            <ion-label>Producto</ion-label>
+            <ion-input formControlName="product_name" placeholder="Nombre del producto"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Tipo de producto</ion-label>
+            <ion-select formControlName="product_type_code">
+              <ion-select-option *ngFor="let productType of productTypes"
+                                 [value]="productType.product_type_code">{{productType.product_type_name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Imagen</ion-label>
+            <ion-input formControlName="resourceMedia" type="file" (input)="takeProductPhoto($event)"></ion-input>
+          </ion-item>
+          <ion-button expand="block" shape="round" type="submit" [disabled]="!productForm.valid" (click)="onSave()"
+                      color="success">Guardar producto
+          </ion-button>
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,65 @@
+<app-header></app-header>
+<ion-content>
+  <ion-card class="full-card-table">
+    <h3>Lotes de la Quincena</h3>
+    <div class="card--container">
+      <ion-card class="card--medium" *ngFor="let productLot of productLots">
+        <ion-card-header>
+          <!-- <div ion-card-avatar class="example-header-image"></div> -->
+          <ion-card-title>{{
+            productLot.productType.productType
+          }}</ion-card-title>
+          <span fxFlex></span>
+          <!-- <button
+            ion-icon-button
+            [matMenuTriggerFor]="productoptions"
+            aria-label="More options"
+          >
+            <ion-icon>more_vert</ion-icon>
+          </button> -->
+<!-- 
+          <ion-menu #productoptions="matMenu" xPosition="before">
+            <button ion-menu-item>
+              <ion-icon>shopping_cart</ion-icon>
+              <span>Reservar</span></button
+            >
+          </ion-menu> -->
+        </ion-card-header>
+        <ion-card-content>
+          <img
+            ion-card-image
+            [src]="productLot.barn_image"
+            alt="Foto de {{ productLot.productType.productType }} "
+          />
+          <div class="price">
+            {{ productLot.estimated_production - productLot.available_quantity }} &nbsp;
+            {{ productLot.productMassMeasurement.productMassMeasurement }}
+          </div>
+          <p>
+            Precio:
+            <strong>L. {{ productLot.price | number: "1.2-2" }}</strong>
+          </p>
+          <p *ngIf="productLot.available_quantity">
+            Reservado: <strong>{{productLot.available_quantity}} de {{ productLot.estimated_production}}</strong>
+          </p>
+          <p>
+            Disponible: {{ productLot.harvest_date | date: "shortDate" }}
+          </p>
+          <p>
+            Producido en: {{ productLot.cultivated_area_address }}
+          </p>
+        </ion-card-content>
+        <ion-item (click)="bookingBarn(productLot.id)">
+          <ion-label>Reservar</ion-label>
+          <ion-icon slot="end" name="bag-check-outline" ></ion-icon>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <div
+      [ngClass]="{ hide: !(productLots !== null && productLots.length > 0) }"
+    >
+      No hay datos
+    </div>
+  </ion-card>
+</ion-content>

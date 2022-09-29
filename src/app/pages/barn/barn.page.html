@@ -1,0 +1,37 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-list>
+    <!-- Sliding item with text options on both sides -->
+    <ion-item-sliding *ngFor="let item of dataBarn">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="onDeleteBarn(item.id)"
+          >Eliminar</ion-item-option
+        >
+      </ion-item-options>
+
+      <ion-item class="info" detail>
+        <div>
+          <p>Producto: {{item.productType.productType}}</p>
+          <p>Cultivado en: {{item.cultivated_area_address}}</p>
+          <p>Disponible para: {{item.harvest_date}}</p>
+        </div>
+        <div>
+          <p>Precio: {{item.price}}</p>
+          <p>Estatus: {{translateStatus(item.status)}}</p>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option [routerLink]="[ 'detail', item.id ]"
+          >Editar</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="noBuyers()" routerLink="detail">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

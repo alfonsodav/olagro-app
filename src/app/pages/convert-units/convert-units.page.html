@@ -1,0 +1,41 @@
+<app-header></app-header>
+<ion-content>
+  <ion-card class="full-card-table">
+    <ion-card-content>
+      <ion-item class="standard-field" appearance="standard">
+        <ion-label>De</ion-label>
+        <ion-select [(ngModel)]="unitsSelected" (ngModelChange)="onChange()" required>
+          <ion-select-option
+            *ngFor="
+              let method of ['Gramos', 'Kilogramos', 'Toneladas', 'Quintales']
+            "
+            [value]="method"
+          >
+            {{ method }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item class="standard-field" appearance="standard">
+        <ion-label>Cantidad</ion-label>
+        <input type="number" matInput [(ngModel)]="valueOrigin"  (input)="onChange()" />
+      </ion-item>
+      <ion-item class="standard-field" appearance="standard">
+        <ion-label>A</ion-label>
+        <ion-select [(ngModel)]="unitsToConver"  (ngModelChange)="onChange()" required>
+          <ion-select-option
+            *ngFor="
+              let method of ['Gramos', 'Kilogramos', 'Toneladas', 'Quintales', 'Libras']
+            "
+            [value]="method"
+          >
+            {{ method }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item class="standard-field" appearance="standard">
+        <ion-label>Resultado</ion-label>
+        <input type="number" readonly matInput [(ngModel)]="valueFinal" />
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

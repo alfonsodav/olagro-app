@@ -1,0 +1,179 @@
+<app-header></app-header>
+<ion-content>
+  <div>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      style="margin: 2em 2em 2em 2em"
+    >
+      <ion-card>
+        <ion-card-title  style="text-align: center; margin-top: 1rem;">Reserva</ion-card-title>
+        <ion-card-content>
+          <div fxFlex>
+            <div>
+              <h3>
+                Numero de producto
+                <span class="text-bold"> #{{ fromBarn ? product?.id : product?.productLotId }}</span>
+              </h3>
+              <p>
+                Disponible a partir de:
+                <span class="text-bold">
+                  {{
+                    fromBarn
+                      ? product?.harvest_date
+                      : product?.productLotAvailableDate
+                  }}</span
+                >
+              </p>
+              <p *ngIf="!fromBarn">
+                Nombre de producto
+                <span class="text-bold"> {{ product?.productLotName }}</span>
+              </p>
+              <p>
+                Costo total del lote
+                <span class="text-bold"> {{ orderTotal }}</span>
+              </p>
+              <p>
+                Monto de reserva
+                <span class="text-bold">{{ orderTotal * 0.1 }}</span>
+              </p>
+            </div>
+            <ion-item appearance="standard">
+              <ion-label>Terminos de envío(Incoterm)</ion-label>
+              <ion-select [(ngModel)]="incoterm">
+                <ion-select-option value="DAP">Envío al destino</ion-select-option>
+                <ion-select-option value="EXW">Entrega directa a la salida</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="standard-field" appearance="standard">
+              <ion-label position="floating">Dirección de envio de productos</ion-label>
+              <ion-input  [(ngModel)]="deliveryAddress" ></ion-input>
+            </ion-item>
+          </div>
+          <form
+            class="standard-form"
+            [formGroup]="paymentForm"
+            novalidate
+            fxFlex
+            autocomplete="off"
+          >
+            <ion-item class="standard-field" appearance="standard">
+              <ion-label>Método de pago</ion-label>
+              <ion-select
+                formControlName="payment_method_id"
+                required
+                (selectionChange)="onPaymentTypeChanged($event)"
+              >
+                <ion-select-option
+                  *ngFor="let method of paymentMethods"
+                  [value]="method.paymentMethodId"
+                  >{{ method.paymentMethod }}</ion-select-option
+                >
+              </ion-select>
+              <ion-label
+                *ngIf="
+                  paymentForm.controls.payment_method_id.hasError('required')
+                "
+              >
+                El método de pago es <strong>requerido</strong>
+              </ion-label>
+            </ion-item>
+
+            <ion-item class="standard-field" appearance="standard">
+              <ion-label position="floating">Monto de pago</ion-label>
+              <ion-input
+                formControlName="payment_amount"
+                placeholder="Monto"
+                pattern="[0-9]+\.?[0-9]*"
+              ></ion-input>
+              <ion-label
+                *ngIf="paymentForm.controls.payment_amount.hasError('required')"
+              >
+                El monto del pago es <strong>requerida</strong>
+              </ion-label>
+            </ion-item>
+
+            <ion-item
+              class="standard-field"
+              appearance="standard"
+              *ngIf="!paymentForm.controls.payment_bank_name.disabled"
+            >
+              <ion-label position="floating">Banco</ion-label>
+              <ion-input
+                formControlName="payment_bank_name"
+                
+                placeholder="Banco"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item
+              class="standard-field"
+              appearance="standard"
+              *ngIf="!paymentForm.controls.payment_bank_account.disabled"
+            >
+              <ion-label position="floating">Cuenta</ion-label>
+              <ion-input
+                formControlName="payment_bank_account"
+                
+                placeholder="Cuenta"
+                ></ion-input>
+            </ion-item>
+
+            <ion-item
+              class="standard-field"
+              appearance="standard"
+              *ngIf="!paymentForm.controls.payment_card_number.disabled"
+            >
+              <ion-label position="floating">Tarjeta de crédito</ion-label>
+              <ion-input
+                formControlName="payment_card_number"
+                
+                placeholder="T/C"
+                ></ion-input>
+            </ion-item>
+
+            <ion-item
+              class="standard-field"
+              appearance="standard"
+              *ngIf="!paymentForm.controls.payment_check_number.disabled"
+            >
+              <ion-label position="floating">Número de cheque</ion-label>
+              <ion-input
+                formControlName="payment_check_number"
+                
+                placeholder="Número de cheque"
+                ></ion-input>
+            </ion-item>
+
+            <ion-item
+              class="standard-field"
+              appearance="standard"
+              *ngIf="!paymentForm.controls.payment_transaction_number.disabled"
+            >
+              <ion-label position="floating">Número de transacción</ion-label>
+              <ion-input
+                formControlName="payment_transaction_number"
+                
+                placeholder="Número de transacción"
+                ></ion-input>
+            </ion-item>
+          </form>
+          <div>
+            <ion-button
+              type="submit"
+              (click)="onSave()"
+              color="primary"
+            >
+              Aceptar
+            </ion-button>
+            <ion-button
+              color="danger"
+              [routerLink]="['/share/catalog']"
+              >Cancelar</ion-button
+            >
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

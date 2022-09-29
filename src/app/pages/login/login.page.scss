@@ -1,0 +1,83 @@
+.login-header{
+  height: 35%;
+  background: #005AA7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #cae6fd, #69b6fa);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #c6e1fa, #69b6fa); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  .logo{
+    width: 40%;
+    margin: auto;
+    padding-top: 5%;
+  }
+}
+.login-content{
+  z-index: 10;
+  height: 100%;
+  --background: #cae6ff;
+  overflow: auto;
+  ion-card{
+    height: 100%;
+    background: url("/../../../assets/images/fondo-short.png") center 0 no-repeat;
+    background-size: cover;
+    border-radius: 2rem 2rem 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    ion-card-content{
+      padding-bottom: 0;
+    }
+  }
+  .input{
+    border-radius: 2rem;
+  }
+  .help{
+    height: 100%;
+    margin-bottom: 0;
+    background: white;
+    text-align: center;
+    display: flex;
+    justify-content: center !important;
+    flex-direction: initial;
+    border-radius: 2rem 2rem 0 0;
+    ion-item{
+      color: #125a24;
+    }
+  }
+}
+.reset-pass{
+  font-size: small;
+  color: white;
+}
+.button-login{
+  background-color: #125a24;
+  color: white;
+  border-radius: 64px;
+}
+.button-invi{
+  background-color: #6cbd00;
+  color: white;
+  border-radius: 64px;
+}
+.text-head{
+  color: #125a24;
+  padding-bottom: 0;
+  h1{
+    font-weight: bold;
+  }
+}
+.span-spacer {
+   flex: 1 1 auto;
+ }
+@media (max-height: 700px) {
+  .login-header{
+    height: 20%;
+    .logo{
+      width: 30%;
+    }
+  }
+}
+
+@media (min-height: 701px) and (max-height: 750px) {
+  .login-header{
+    height: 30%;
+  }
+}
